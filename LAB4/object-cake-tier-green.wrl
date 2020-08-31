@@ -1,0 +1,129 @@
+#VRML V2.0 utf8
+# The following EXTERNPROTO definitins remain the same for all FVRML scenes.
+EXTERNPROTO FGeometry [
+	exposedField SFString definition
+	exposedField MFFloat parameters
+	exposedField MFInt32 resolution
+	exposedField SFVec3f bboxCenter
+	exposedField SFVec3f bboxSize
+	exposedField SFString type
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FGeometry"
+EXTERNPROTO FMaterial [
+	exposedField SFString diffuseColor
+	exposedField SFString type
+	exposedField MFColor patternColor
+	exposedField MFFloat patternKey
+	exposedField SFString ambientIntensity
+	exposedField SFString emissiveColor
+	exposedField SFString shininess
+	exposedField SFString specularColor
+	exposedField SFString transparency
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FMaterial"
+EXTERNPROTO FTexture3D [
+	exposedField SFString definition
+	exposedField SFString type
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTexture3D"
+EXTERNPROTO FAppearance [
+	exposedField SFNode	material
+	exposedField SFNode	texture
+	exposedField SFNode	textureTransform
+	exposedField SFNode	texture3D
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FAppearance"
+EXTERNPROTO FShape [
+	exposedField SFNode	geometry
+	exposedField SFNode	appearance
+	exposedField SFString polygonizer
+	exposedField MFNode	parents
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FShape"
+EXTERNPROTO FTransform [
+	exposedField SFString operation
+	exposedField SFString type
+	exposedField SFString polygonizer
+	exposedField MFFloat parameters
+	exposedField SFString center
+	exposedField SFString rotation
+	exposedField SFString scale
+	exposedField SFString scaleOrientation
+	exposedField SFString translation
+	exposedField MFNode children
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+    exposedField SFVec2f timeSpan
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTransform"
+
+Viewpoint {
+	position 0 0 10
+	description "cake tier"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+# cake tier
+FShape {
+	geometry FGeometry {
+		definition "function frep(x,y,z,t){
+		cylinder = 1^2-x^2-(z^2);
+		p1=-y+0.3;
+		p2=y+0.3;
+		m1=min(cylinder,p1);
+		cake_tier=min(m1,p2);
+		return cake_tier;}"
+
+		bboxCenter 0 0 0
+		bboxSize 2 0.7 2
+		resolution [30 21 30]
+
+	}     
+	appearance FAppearance {
+		material FMaterial { 
+			# Variable color is defined for the CGS solid
+			diffuseColor "r=0.8; g=1; b=0.8;"
+		}   
+		texture3D FTexture3D {
+			definition 
+			"x=0.05*sin(20*pi*u)*sin(20*pi*u);
+			y=0.05*sin(20*pi*u)*sin(20*pi*u);
+			z=0;"
+			type "displacement"
+		}
+	}
+}
+
+
+# Displaying the bounding box with a standard Box object of VRML
+# Size of the bounding box goes to size <x y z> while its centre
+# goes to translation <x y z>
+#Transform {translation 0 0 0 children [
+#		Shape {geometry Box {size 2 0.7 2}	
+#			appearance Appearance {material Material 
+#				{diffuseColor 0 0 0 transparency 0.5}}}
+#	]}

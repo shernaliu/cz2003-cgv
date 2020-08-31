@@ -1,0 +1,30 @@
+#VRML V2.0 utf8
+
+Viewpoint {
+	position 0 0 10
+	description "Tree-high-detail-full"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+Group {
+	children [
+    	Inline {
+        	url [ "tree-high-detail-trunk.wrl" ]
+    	}
+		Inline {
+        	url [ "tree-high-detail-leaves.wrl" ]
+    	}
+		Transform {
+			scale 1.25 1.25 1.25 
+			translation	0 -0.7 0
+			children[
+    			Inline {
+        			url [ "tree-high-detail-leaves.wrl" ]
+    			}
+			]
+		}
+	
+
+	]
+}

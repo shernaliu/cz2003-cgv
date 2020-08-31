@@ -1,0 +1,149 @@
+#VRML V2.0 utf8
+# The following EXTERNPROTO definitins remain the same for all FVRML scenes.
+EXTERNPROTO FGeometry [
+	exposedField SFString definition
+	exposedField MFFloat parameters
+	exposedField MFInt32 resolution
+	exposedField SFVec3f bboxCenter
+	exposedField SFVec3f bboxSize
+	exposedField SFString type
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FGeometry"
+EXTERNPROTO FMaterial [
+	exposedField SFString diffuseColor
+	exposedField SFString type
+	exposedField MFColor patternColor
+	exposedField MFFloat patternKey
+	exposedField SFString ambientIntensity
+	exposedField SFString emissiveColor
+	exposedField SFString shininess
+	exposedField SFString specularColor
+	exposedField SFString transparency
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FMaterial"
+EXTERNPROTO FTexture3D [
+	exposedField SFString definition
+	exposedField SFString type
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTexture3D"
+EXTERNPROTO FAppearance [
+	exposedField SFNode	material
+	exposedField SFNode	texture
+	exposedField SFNode	textureTransform
+	exposedField SFNode	texture3D
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FAppearance"
+EXTERNPROTO FShape [
+	exposedField SFNode	geometry
+	exposedField SFNode	appearance
+	exposedField SFString polygonizer
+	exposedField MFNode	parents
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FShape"
+EXTERNPROTO FTransform [
+	exposedField SFString operation
+	exposedField SFString type
+	exposedField SFString polygonizer
+	exposedField MFFloat parameters
+	exposedField SFString center
+	exposedField SFString rotation
+	exposedField SFString scale
+	exposedField SFString scaleOrientation
+	exposedField SFString translation
+	exposedField MFNode children
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+    exposedField SFVec2f timeSpan
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTransform"
+NavigationInfo { type [ "EXAMINE" "ANY" ] }
+
+Background {skyColor 0.75 0.75 0.75 }
+
+Viewpoint {
+	description "Tree (All three level of details)"
+	position 0 0 10
+}
+
+Group {
+	children [
+    	Transform {
+        	translation -2 0 0
+        	children [
+            	Inline {
+            		url [ "tree-high-detail-full.wrl" ]
+            	}
+        	]
+    	}
+    	Inline {
+        	url [ "tree-medium-detail-full.wrl" ]
+    	}
+    	Transform {
+        	translation 2 0 0
+        	children [
+            	Inline {
+            		url [ "tree-low-detail-full.wrl" ]
+            	}
+        	]
+    	}
+	]
+}
+
+Transform{
+	translation -2.6  -1.5 0
+	scale 0.3 0.3 0.3
+	children[ 
+    	Shape { geometry Text { string [ "High LOD" ]}
+			appearance Appearance {
+	    		material Material {
+	    			diffuseColor 0 0 0
+	    		}
+			}}
+    ]
+}
+
+Transform{
+	translation -0.8  -1.5 0
+	scale 0.3 0.3 0.3
+	children[ 
+    	Shape { geometry Text { string [ "Medium LOD" ]}
+			appearance Appearance {
+	    		material Material {
+	    			diffuseColor 0 0 0
+	    		}
+			}}
+    ]
+}
+
+Transform{
+	translation 1.5  -1.5 0
+	scale 0.3 0.3 0.3
+	children[ 
+    	Shape { geometry Text { string [ "Low LOD" ]}
+			appearance Appearance {
+	    		material Material {
+	    			diffuseColor 0 0 0
+	    		}
+			}}
+    ]
+}

@@ -1,0 +1,209 @@
+#VRML V2.0 utf8
+# The following EXTERNPROTO definitins remain the same for all FVRML scenes.
+EXTERNPROTO FGeometry [
+	exposedField SFString definition
+	exposedField MFFloat parameters
+	exposedField MFInt32 resolution
+	exposedField SFVec3f bboxCenter
+	exposedField SFVec3f bboxSize
+	exposedField SFString type
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FGeometry"
+EXTERNPROTO FMaterial [
+	exposedField SFString diffuseColor
+	exposedField SFString type
+	exposedField MFColor patternColor
+	exposedField MFFloat patternKey
+	exposedField SFString ambientIntensity
+	exposedField SFString emissiveColor
+	exposedField SFString shininess
+	exposedField SFString specularColor
+	exposedField SFString transparency
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FMaterial"
+EXTERNPROTO FTexture3D [
+	exposedField SFString definition
+	exposedField SFString type
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTexture3D"
+EXTERNPROTO FAppearance [
+	exposedField SFNode	material
+	exposedField SFNode	texture
+	exposedField SFNode	textureTransform
+	exposedField SFNode	texture3D
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FAppearance"
+EXTERNPROTO FShape [
+	exposedField SFNode	geometry
+	exposedField SFNode	appearance
+	exposedField SFString polygonizer
+	exposedField MFNode	parents
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FShape"
+EXTERNPROTO FTransform [
+	exposedField SFString operation
+	exposedField SFString type
+	exposedField SFString polygonizer
+	exposedField MFFloat parameters
+	exposedField SFString center
+	exposedField SFString rotation
+	exposedField SFString scale
+	exposedField SFString scaleOrientation
+	exposedField SFString translation
+	exposedField MFNode children
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+    exposedField SFVec2f timeSpan
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTransform"
+
+Viewpoint {
+	position 0 0 5
+	description "Animal-high-detail-body"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+# animal-high-detail-body
+FShape {
+	geometry FGeometry {
+
+		# Function script defining the CSG solid. 
+		definition "function frep(x,y,z,t){
+
+		head_ellipsoid = 1-(x/0.7)^2-(y/0.5)^2-(z/0.55)^2;
+		nose_sphere = 0.06^2-x^2-y^2-(z-0.55)^2;
+		head_nose = max(head_ellipsoid,nose_sphere);
+
+		left_horn_cone = (((x+0.3)^2+z^2)/(0.2)^2)-(y-1)^2 ;
+		right_horn_cone = (((x-0.3)^2+z^2)/(0.2)^2)-(y-1)^2 ;
+		horn_plane = y-0.3;
+		right_horn = min(horn_plane,-right_horn_cone);
+		left_horn = min(horn_plane,-left_horn_cone);
+		horns = max(left_horn, right_horn);
+
+		head_nose_horns = max(head_nose,horns);
+
+		mouth_shape = 1-(x/0.1)^10-((y/0.1)+2.25)^1-((z/0.1)-6)^1;
+		mouth_plane_1 = z-0.3;
+		mouth_plane_2 = y+0.2;
+		mouth_shape_p1 = min(mouth_shape,mouth_plane_1); 
+		mouth = min(mouth_shape_p1,mouth_plane_2);
+
+		head_nose_horns_mouth = max(head_nose_horns,mouth);
+
+		whisker_cylinder_top = 0.04^2-(y-0.05)^2-(z-0.2)^2;
+		whisker_plane_1 = x-0.5;
+		whisker_plane_2 = -x+0.8;
+		whisker_p1 = min(whisker_cylinder_top, whisker_plane_1);
+		right_whisker_top = min(whisker_p1, whisker_plane_2);
+
+		whisker_cylinder_bottom = 0.04^2-(y+0.1)^2-(z-0.2)^2;
+		whisker_plane_3 = -x+0.9;
+		whisker_p2 = min(whisker_cylinder_bottom, whisker_plane_1);
+		right_whisker_bottom = min(whisker_p2, whisker_plane_3);
+
+		right_whiskers = max(right_whisker_top, right_whisker_bottom);
+
+		whisker_plane_4 = -x-0.5;
+		whisker_plane_5 = x+0.8;
+		whisker_p3 = min(whisker_cylinder_top, whisker_plane_4);
+		left_whisker_top = min(whisker_p3, whisker_plane_5);
+
+		whisker_plane_6 = x+0.9;
+		whisker_p4 = min(whisker_cylinder_bottom, whisker_plane_4);
+		left_whisker_bottom = min(whisker_p4, whisker_plane_6);
+
+		left_whiskers = max(left_whisker_top, left_whisker_bottom);
+
+		whiskers = max(left_whiskers, right_whiskers);
+
+		head_nose_horns_mouth_whiskers = max(head_nose_horns_mouth, whiskers);
+
+		double_torus = ((1.5*x^2+1.5*(y/x)^2)^2-1.5*x^2+1.5*(y/x)^2)^2+(1.5*z)^2-0.01;
+		dt_plane_1 = x-0.65;
+		right_ear = min(dt_plane_1, -double_torus);
+
+		dt_plane_2 = -x-0.65;
+		left_ear = min(dt_plane_2,-double_torus);
+
+		ears = max(left_ear, right_ear);
+
+		full_head = max(head_nose_horns_mouth_whiskers, ears);
+
+		torso_super_ellipsoid = 0.2^2-(x)^4-((y/0.7)+0.8)^4-((z/1.25)+0.1)^4;
+
+		full_head_torso = max(torso_super_ellipsoid, full_head);
+
+		legs_ellipsoid = 0.1^2-((abs(x)/0.3)-0.75)^4-(y+0.65)^4-((abs(z)/0.3)-1)^4;
+
+		full_head_torso_legs = max(full_head_torso, legs_ellipsoid);
+
+		butt_sphere = 0.35^2-(abs(x)-0.2)^2-(y+0.55)^2-(z+0.6)^2;
+
+		full_head_torso_legs_butt = max(full_head_torso_legs,butt_sphere);
+
+		tail_spring_1=(0.15-sqrt((z+0.8)^2+(x)^2))^2 + (1.25*y-0.2+(0.2*atan2(z+0.8,x))/pi)^2 - (0.05)^2;
+		tail_spring_2=(0.15-sqrt((z+0.8)^2+(x)^2))^2 + (1.25*y+0.2+(0.2*atan2(z+0.8,x))/pi)^2 - (0.05)^2;
+		tail_spring_1_2 = min(tail_spring_1, tail_spring_2);
+
+		tail_spring_3=(0.15-sqrt((z+0.8)^2+(x)^2))^2 + (1.25*y-0.6+(0.2*atan2(z+0.8,x))/pi)^2 - (0.05)^2;
+		tail_spring_1_2_3 = min(tail_spring_1_2, tail_spring_3);
+
+		tail_plane = y+0.3;
+
+		tail = min(tail_plane, -tail_spring_1_2_3);
+
+		full_head_torso_legs_butt_tail = max(full_head_torso_legs_butt,tail);
+
+		cylindrical = 0.04^2-x^2-(y+0.65)^2;
+		c_h_plane = -z-0.7;
+		cylindrical_hole = min(cylindrical, c_h_plane);
+
+		animal = min(full_head_torso_legs_butt_tail, -cylindrical_hole);
+
+		return animal;}"
+
+		# Adjust the tight bounding box and an optimal resolution
+		bboxCenter 0 0 -0.15
+		bboxSize 1.85 1.9 1.7
+		resolution [70 70 70]
+	}     
+	appearance FAppearance {
+		material FMaterial { 
+			# Variable color is defined for the CGS solid
+			diffuseColor "r=1; g=abs(sin(0.3*u*pi)); b=abs(cos(1*u*pi));"
+		}    }
+}
+
+# Displaying the bounding box with a standard Box object of VRML
+# Size of the bounding box goes to size <x y z> while its centre
+# goes to translation <x y z>
+#Transform {translation 0 0 -0.15 children [
+#	Shape {geometry Box {size 1.85 1.9 1.7}	
+#		   appearance Appearance {material Material 
+#			   {diffuseColor 0 0 0 transparency 0.5}}}
+#	   ]}

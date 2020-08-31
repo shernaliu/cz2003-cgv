@@ -1,0 +1,26 @@
+#VRML V2.0 utf8
+
+Viewpoint {
+	position 0 0 10
+	description "Animal-medium-detail-full"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+Group {
+	children [
+    	Inline {
+        	url [ "animal-medium-detail-body.wrl" ]
+    	}
+		Inline {
+        	url [ "animal-medium-detail-eyes.wrl" ]
+    	}
+		Inline {
+        	url [ "animal-medium-detail-feet.wrl" ]
+    	}
+
+	]
+}

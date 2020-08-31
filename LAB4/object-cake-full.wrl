@@ -1,0 +1,155 @@
+#VRML V2.0 utf8
+
+Viewpoint {
+	position 0 0 10
+	description "Object - cake full"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+Group {
+	children [
+		# tier 1
+		Transform{
+    		children[
+				Inline {
+    				url [ "object-cake-tier-pink.wrl" ]
+    			}
+			]
+		}
+		# tier 2
+		Transform{
+			scale 0.7 0.7 0.7
+			rotation 1 0 1 3.1415926
+			translation	0 0.5 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-purple.wrl" ]
+    			}
+			]
+		}
+		# tier 3
+		Transform{
+			scale 0.4 0.4 0.4
+			translation	0 0.8 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-yellow.wrl" ]
+    			}
+			]
+		}
+		# mini cake top tier
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 1 1.5707963
+			translation	0 1 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-pink.wrl" ]
+    			}
+			]
+		}
+		# mini cake top tier
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 -1 1.5707963
+			translation	0 1 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-pink.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - front
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 0 1.5707963
+			translation	0 0 1
+    		children[
+				Inline {
+    				url [ "object-cake-tier-yellow.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - back
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 0 1.5707963
+			translation	0 0 -1
+    		children[
+				Inline {
+    				url [ "object-cake-tier-yellow.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - right
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 0 0 1 1.5707963
+			translation	1 0 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-purple.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - left
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 0 0 1 1.5707963
+			translation	-1 0 0
+    		children[
+				Inline {
+    				url [ "object-cake-tier-purple.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - front left
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 1 1.5707963
+			translation	-0.7 0 0.7
+    		children[
+				Inline {
+    				url [ "object-cake-tier-green.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - back right
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation 1 0 1 1.5707963
+			translation	0.73 0 -0.73
+    		children[
+				Inline {
+    				url [ "object-cake-tier-green.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - front right
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation -1 0 1 1.5707963
+			translation	0.73 0 0.73
+    		children[
+				Inline {
+    				url [ "object-cake-tier-green.wrl" ]
+    			}
+			]
+		}
+		# mini cake on tier 1 - back left right
+		Transform{
+			scale 0.2 0.2 0.2
+			rotation -1 0 1 1.5707963
+			translation	-0.7 0 -0.7
+    		children[
+				Inline {
+    				url [ "object-cake-tier-green.wrl" ]
+    			}
+			]
+		}
+	]
+}

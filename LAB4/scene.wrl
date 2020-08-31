@@ -1,0 +1,316 @@
+#VRML V2.0 utf8
+
+######################### Scene #########################
+Background {
+	skyAngle [ .05, .1, 2 ]
+	skyColor [ 1 1 0, 1 1 0.5, 0 0 0.5, 0.2 1 1 ]
+	groundAngle [ 1.57 ]
+	groundColor [ 0.2 0.41 0, 0.28 0.34 0 ]
+}
+
+Viewpoint {
+	description "20m No detail - Zoom forward to see animal!"
+	orientation 1 0 0 -0.1
+	position 0 1.5 20
+}
+Viewpoint {
+	description "10m Low detail animal"
+	orientation 1 0 0 -0.1
+	position 0 1 10
+}
+Viewpoint {
+	description "5m Medium detail animal"
+	orientation 1 0 0 -0.1
+	position 0 0.5 5
+}
+Viewpoint {
+	description "2m High detail animal"
+	orientation 1 0 0 -0.1
+	position 0 0 2
+}
+NavigationInfo {
+	speed 2.0
+	type  "WALK"   
+}
+
+DirectionalLight
+#ambientIntensity controls how much this light source contributes to the ambient color, e.g., if it is 1, than it contributes to ambient color with a maximum value
+{	color 0.5 0.5 0.5 
+	intensity 0.3 
+	direction 0 0 -1 
+	ambientIntensity 1
+}
+
+# animal
+LOD {
+	range [ 4 8 16 ]
+	level [
+		Transform{
+			translation 0 -1 0
+    		children[
+				Inline {
+    				url [ "animal-high-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation 0 -1 0
+    		children[
+				Inline {
+    				url [ "animal-medium-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation 0 -1 0
+    		children[
+				Inline {
+    				url [ "animal-low-detail-full.wrl" ]
+    			}
+			]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# mini tree	1
+LOD {
+	range [ 4 8 16 ]
+	level [
+		Transform{
+			scale 5 5 5
+			translation 10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-high-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 5 5 5
+			translation 10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-medium-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 5 5 5
+			translation 10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-low-detail-full.wrl" ]
+    			}
+			]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# mini tree	2
+LOD {
+	range [ 4 8 16 ]
+	level [
+		Transform{
+			scale 3 3 3
+			translation 0 0 -5
+    		children[
+				Inline {
+    				url [ "tree-high-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 3 3 3
+			translation 0 0 -5
+    		children[
+				Inline {
+    				url [ "tree-medium-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 3 3 3
+			translation 0 0 -5
+    		children[
+				Inline {
+    				url [ "tree-low-detail-full.wrl" ]
+    			}
+			]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# mini tree	3
+LOD {
+	range [ 4 8 16 ]
+	level [
+		Transform{
+			scale 5 5 5
+			translation -10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-high-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 5 5 5
+			translation -10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-medium-detail-full.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			scale 5 5 5
+			translation -10 0 -5
+    		children[
+				Inline {
+    				url [ "tree-low-detail-full.wrl" ]
+    			}
+			]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# left tree
+LOD {
+	range [ 8 12 20 ]
+	level [
+    	Transform {
+			scale 10 10 10
+    		translation -30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-high-detail-full.wrl" ]
+        		}
+    		]
+		}
+    	Transform {
+			scale 10 10 10
+    		translation -30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-medium-detail-full.wrl" ]
+        		}
+    		]
+		}
+		Transform {
+			scale 10 10 10
+    		translation -30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-low-detail-full.wrl" ]
+        		}
+    		]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# right tree
+LOD {
+	range [ 8 12 20 ]
+	level [
+    	Transform {
+			scale 10 10 10
+    		translation 30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-high-detail-full.wrl" ]
+        		}
+    		]
+		}
+    	Transform {
+			scale 10 10 10
+    		translation 30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-medium-detail-full.wrl" ]
+        		}
+    		]
+		}
+		Transform {
+			scale 10 10 10
+    		translation 30 0 -5
+    		children [
+        		Inline {
+            		url [ "tree-low-detail-full.wrl" ]
+        		}
+    		]
+		}
+    	WorldInfo {
+    		info [ "null node" ]
+    	}
+	]
+}
+
+# table	right
+Transform {
+	scale .1 .1 .1
+	translation 5 -1 0
+    children [
+        Inline {
+            url [ "object-table-full.wrl" ]
+        }
+    ]
+}
+
+# vase
+Transform {
+	scale .1 .1 .1
+	translation 5 -0.7 0
+    children [
+        Inline {
+            url [ "object-vase.wrl" ]
+        }
+    ]
+}
+
+# bagel
+Transform {
+	scale .1 .1 .1
+	translation 5 -0.7 0
+    children [
+        Inline {
+            url [ "object-bagel.wrl" ]
+        }
+    ]
+}
+
+# table	right
+Transform {
+	scale .1 .1 .1
+	translation -5 -1 0
+    children [
+        Inline {
+            url [ "object-table-full.wrl" ]
+        }
+    ]
+}
+
+# mooncake cake
+Transform {
+	scale .5 .5 .5
+	translation -5 -0.75 0
+    children [
+        Inline {
+            url [ "object-cake-full.wrl" ]
+        }
+    ]
+}

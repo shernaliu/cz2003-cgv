@@ -1,0 +1,145 @@
+#VRML V2.0 utf8
+# The following EXTERNPROTO definitins remain the same for all FVRML scenes.
+EXTERNPROTO FGeometry [
+	exposedField SFString definition
+	exposedField MFFloat parameters
+	exposedField MFInt32 resolution
+	exposedField SFVec3f bboxCenter
+	exposedField SFVec3f bboxSize
+	exposedField SFString type
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FGeometry"
+EXTERNPROTO FMaterial [
+	exposedField SFString diffuseColor
+	exposedField SFString type
+	exposedField MFColor patternColor
+	exposedField MFFloat patternKey
+	exposedField SFString ambientIntensity
+	exposedField SFString emissiveColor
+	exposedField SFString shininess
+	exposedField SFString specularColor
+	exposedField SFString transparency
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FMaterial"
+EXTERNPROTO FTexture3D [
+	exposedField SFString definition
+	exposedField SFString type
+	exposedField MFFloat parameters
+	exposedField MFNode	parents
+	exposedField SFVec2f timeSpan
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTexture3D"
+EXTERNPROTO FAppearance [
+	exposedField SFNode	material
+	exposedField SFNode	texture
+	exposedField SFNode	textureTransform
+	exposedField SFNode	texture3D
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FAppearance"
+EXTERNPROTO FShape [
+	exposedField SFNode	geometry
+	exposedField SFNode	appearance
+	exposedField SFString polygonizer
+	exposedField MFNode	parents
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FShape"
+EXTERNPROTO FTransform [
+	exposedField SFString operation
+	exposedField SFString type
+	exposedField SFString polygonizer
+	exposedField MFFloat parameters
+	exposedField SFString center
+	exposedField SFString rotation
+	exposedField SFString scale
+	exposedField SFString scaleOrientation
+	exposedField SFString translation
+	exposedField MFNode children
+	exposedField MFNode	parents
+	eventIn	SFBool refresh
+    exposedField SFVec2f timeSpan
+	exposedField SFTime	startTime
+	exposedField SFTime stopTime
+    exposedField SFTime cycleInterval
+    exposedField SFBool	loop
+	exposedField SFBool	enabled
+	eventOut SFTime	cycleTime
+	eventIn SFFloat set_fraction
+	field SFInt32 frames
+] "http://www3.ntu.edu.sg/home/assourin/FVRML/FVRML.wrl#FTransform"
+
+Viewpoint {
+	position 0 -0.5 5
+	description "Delicious Spinning Bagel"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+DirectionalLight
+#ambientIntensity controls how much this light source contributes to the ambient color, e.g., if it is 1, than it contributes to ambient color with a maximum value
+{	color 1 1 1 
+	intensity 0.1 
+	direction 0 0 -1 
+	ambientIntensity 1
+}
+
+# Torus rotates about an axis.
+# Tut9-Q2 rotation about an axis: from origin to (1,0,1)
+Transform {
+	#rotation 0 1 0 0
+	children [
+		FShape {
+			loop TRUE
+			cycleInterval 2
+			frames 60
+ 			appearance Appearance {
+				material Material {
+					diffuseColor 0.95 0.64 0.37
+					specularColor 1 1 1
+					#controls how much the geometry contributes to the color, e.g., if it is 0 - there is no ambient reflection seen at all
+					ambientIntensity 0
+					shininess 0.5
+				}
+			}
+			geometry FGeometry {
+				definition "
+				function frep(x1,y1,z1,t){
+
+				x= x1*0.5*(cos(t*2*pi)+1) - y1*0.5*sqrt(2)*sin(t*2*pi) + z1*0.5*(1-cos(t*2*pi));
+				y= x1*0.5*sqrt(2)*sin(t*2*pi) + y1*cos(t*2*pi) - z1*0.5*sqrt(2)*sin(t*2*pi);
+				z= x1*0.5*(1-cos(t*2*pi)) + y1*0.5*sqrt(2)*sin(t*2*pi) + z1*0.5*(1+cos(t*2*pi));
+
+				bagel=(sqrt(x^2+z^2)-0.4)^2+y^2-0.2^2;
+
+				return bagel;}"
+
+				resolution [20 20 20]
+				bboxCenter 0 0 0
+				bboxSize  1.2 1.2 1.2
+			}
+
+		}
+
+
+	]}
+
+# Displaying the bounding box with a standard Box object of VRML
+# Size of the bounding box goes to size <x y z> while its centre
+# goes to translation <x y z>
+#Transform {translation 0 0 0 children [
+#	Shape {geometry Box {size 1.2 1.2 1.2}	
+#		   appearance Appearance {material Material 
+#			   {diffuseColor 0 0 0 transparency 0.5}}}
+#	   ]}

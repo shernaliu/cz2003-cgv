@@ -1,0 +1,56 @@
+#VRML V2.0 utf8
+
+Viewpoint {
+	position 0 0 40
+	description "Object - table full"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+Group {
+	children [
+		Transform{
+			scale 2 2 2
+    		children[
+				Inline {
+    				url [ "object-table-top.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation 8 -6 4
+    		children[
+				Inline {
+    				url [ "object-table-leg.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation 8 -6 -4
+    		children[
+				Inline {
+    				url [ "object-table-leg.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation -8 -6 -4
+    		children[
+				Inline {
+    				url [ "object-table-leg.wrl" ]
+    			}
+			]
+		}
+		Transform{
+			translation -8 -6 4
+    		children[
+				Inline {
+    				url [ "object-table-leg.wrl" ]
+    			}
+			]
+		}
+	]
+}

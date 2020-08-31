@@ -1,0 +1,58 @@
+#VRML V2.0 utf8
+
+Viewpoint {
+	position 0 -0.5 5
+	description "Animal-medium-detail-feet"
+}
+
+Background {skyColor 0.75 0.75 0.75 }
+
+# External VRML object "coordinate system" is included in the scene
+#Inline {url "http://www3.ntu.edu.sg/home/assourin/FVRML/CoordinateAxes.wrl"}
+
+# animal-medium-detail-feet
+# front left foot
+# front right foot
+# back left foot
+# back right foot
+
+Group {
+	children [
+		Transform {  
+			scale 0.08 0.08 0.08
+			translation	0.23 -1 0.3
+			children[
+    			Inline {
+        			url [ "animal-medium-detail-foot.wrl" ]
+    			}
+			]
+		}
+		Transform {  
+			scale 0.08 0.08 0.08
+			translation	-0.23 -1 0.3
+			children[
+    			Inline {
+        			url [ "animal-medium-detail-foot.wrl" ]
+    			}
+			]
+		}
+		Transform {  
+			scale 0.08 0.08 0.08
+			translation	0.23 -1 -0.3
+			children[
+    			Inline {
+        			url [ "animal-medium-detail-foot.wrl" ]
+    			}
+			]
+		}
+		Transform {  
+			scale 0.08 0.08 0.08
+			translation	-0.23 -1 -0.3
+			children[
+    			Inline {
+        			url [ "animal-medium-detail-foot.wrl" ]
+    			}
+			]
+		}
+	]
+}
